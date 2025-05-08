@@ -19,6 +19,8 @@ const {
   createPost,
   allPosts,
   likePost,
+  commentOnPost,
+  getSinglePost,
 } = require("./controllers/postControllers.js");
 const app = express();
 app.use(express.json());
@@ -50,7 +52,9 @@ app.get("/profile", auth, myProfile);
 app.get("/logout", auth, logout);
 app.post("/create-post", upload.single("file"), auth, createPost);
 app.get("/posts", auth, allPosts);
+app.get("/post/:pid", auth, getSinglePost);
 app.put("/post-like/:pid", auth, likePost);
+app.post("/post-comment/:pid", auth, commentOnPost);
 app.use(errorHandler);
 app.listen(3000, () => {
   console.log("Server is running");
